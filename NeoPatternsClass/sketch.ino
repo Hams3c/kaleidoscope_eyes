@@ -28,13 +28,13 @@ void setup()
     
     // Kick off a pattern
     // Ring1.RainbowCycle(100, FORWARD);
-    Ring1.ColorWipe(Ring1.Color(255,255,0), 100, FORWARD);
+    // Ring1.ColorWipe(Ring1.Color(255,255,0), 100, FORWARD);
     // Ring1.TheaterChase(Ring1.Color(255,255,0), Ring1.Color(0,0,50), 100, REVERSE);
-    // Ring1.Scanner(Ring1.Color(255,255,0), 100);
-    // Ring1.Fade(Ring1.Color(255,255,0), Ring1.Color(0,0,50), 10, 100, REVERSE);
+    Ring1.Scanner(Ring1.Color(255,255,0), 50);
+    // Ring1.Fade(Ring1.Color(255,255,0), Ring1.Color(0,0,50), 100, 15, FORWARD);
 }
 
 void loop() {
     // put your main code here, to run repeatedly:
-    Ring1.Update();
+    Ring1.Update(50);
 }

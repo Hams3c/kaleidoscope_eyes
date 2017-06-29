@@ -120,7 +120,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         Direction = dir;
     }
 
-// Update the Color Wipe Pattern
+    // Update the Color Wipe Pattern
     void ColorWipeUpdate()
     {
         setPixelColor(Index, Color1);
@@ -128,7 +128,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         Increment();
     }
 
-// Initialize for a Theater Chase
+    // Initialize for a Theater Chase
     void TheaterChase(uint32_t color1, uint32_t color2, uint8_t interval, direction dir = FORWARD)
     {
         ActivePattern = THEATER_CHASE;
@@ -140,7 +140,7 @@ class NeoPatterns : public Adafruit_NeoPixel
         Direction = dir;
    }
 
-// Update the Theater Chase Pattern
+    // Update the Theater Chase Pattern
     void TheaterChaseUpdate()
     {
         for(int i=0; i< numPixels(); i++)
@@ -170,8 +170,9 @@ class NeoPatterns : public Adafruit_NeoPixel
     }
 
     // Update the Scanner Pattern
-    void ScannerUpdate()
-    { 
+    void ScannerUpdate(uint8_t interval)
+    {
+        Interval = interval;
         for (int i = 0; i < numPixels(); i++)
         {
             if (i == Index) // first half of the scan
