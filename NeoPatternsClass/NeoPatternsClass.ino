@@ -1,7 +1,7 @@
 #include <Adafruit_NeoPixel.h>
 
 // Pattern types supported:
-enum  pattern { NONE, RAINBOW_CYCLE, THEATER_CHASE, COLOR_WIPE, SCANNER, FADE };
+enum  pattern { NONE, RAINBOW_CYCLE, THEATER_CHASE, COLOR_WIPE, SCANNER, AINFINITY, FADE };
 // Patern directions supported:
 enum  direction { FORWARD, REVERSE };
 
@@ -49,6 +49,9 @@ class NeoPatterns : public Adafruit_NeoPixel
                     break;
                 case SCANNER:
                     ScannerUpdate();
+                    break;
+                case AINFINITY:
+                    aInfinityUpdate();
                     break;
                 case FADE:
                     FadeUpdate();
@@ -170,9 +173,8 @@ class NeoPatterns : public Adafruit_NeoPixel
     }
 
     // Update the Scanner Pattern
-    void ScannerUpdate(uint8_t interval)
+    void ScannerUpdate()
     {
-        Interval = interval;
         for (int i = 0; i < numPixels(); i++)
         {
             if (i == Index) // first half of the scan
@@ -192,6 +194,64 @@ class NeoPatterns : public Adafruit_NeoPixel
         }
         show();
         Increment();
+    }
+
+    // Initialize for a INFINITY
+    void aInfinity(uint32_t color1, uint8_t interval)
+    {
+        ActivePattern = AINFINITY;
+        Interval = interval;
+        // TotalSteps = (numPixels() - 1) * 2;
+        TotalSteps = 255;
+        Color1 = color1;
+        Index = 4;
+    }
+
+    // Update the Infinity Pattern
+    void aInfinityUpdate()
+    {
+        setBrightness(20);
+        for (int i = 4; i < 16; i++)
+        {
+            setPixelColor(i, Color1);
+            DimColor(getPixelColor(i-1));
+            delay(30);
+            show();
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            setPixelColor(i, Color1);
+            setPixelColor(i, DimColor(getPixelColor(i)));
+            delay(30);
+            show();
+        }
+
+        for (int i = 28; i > 21; i--)
+        {
+            setPixelColor(i, Color1);
+            setPixelColor(i, DimColor(getPixelColor(i)));
+            delay(30);
+            show();
+        }
+
+        for (int i = 21; i > 15; i--)
+        {
+            setPixelColor(i, Color1);
+            setPixelColor(i, DimColor(getPixelColor(i)));
+            delay(30);
+            show();
+        }
+
+        for (int i = 31; i > 28; i--)
+        {
+            setPixelColor(i, Color1);
+            setPixelColor(i, DimColor(getPixelColor(i)));
+            delay(30);
+            show();
+        }
+
+        OnComplete();
     }
 
     // Initialize for a Fade
