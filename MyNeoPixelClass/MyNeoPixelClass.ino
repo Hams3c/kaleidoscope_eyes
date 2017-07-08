@@ -13,6 +13,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     uint32_t Color1, Color2;  // What colors are in use
     uint16_t Index;  // current step within the pattern
+    unsigned long Interval;   // milliseconds between updates
 
     // Constructor - calls base-class constructor to initialize discs
     MyNeoPixelClass(uint16_t pixels, uint8_t pin)
@@ -66,6 +67,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void ferrisWheel(uint32_t color)
     {
+        setBrightness(100);
         for (uint8_t i=0; i < 16; i++)
         {
             setPixelColor(i, color);
@@ -120,17 +122,15 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
     {
         for(int i=0; i < numPixels(); i++)
         {
-            uint32_t color = Wheel(((i * 256 / numPixels())) & 255);
-            setPixelColor(i, color);
-            setPixelColor(31-i, color); // Second eye (flipped)
-            show();
-            // if( (offset + i) < 0) c = color; // 2 pixels on...
-            delay(30);
+            setPixelColor(i, Wheel(((i * 256 / numPixels()) + Index) & 255));
         }
+        show();
+        Index++;
     }
 
     void TheaterChase(uint32_t color1, uint32_t color2)
     {
+        setBrightness(100);
         for(int i=0; i < numPixels(); i++)
         {
             if ((i+Index) % 3 == 0)
@@ -151,6 +151,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void FadeAndBlink(uint32_t color)
     {
+        setBrightness(100);
         for (int i=0; i < numPixels(); i++)
         {
             setPixelColor(i, Color1);
@@ -199,6 +200,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void Strobe(uint32_t color)
     {
+        setBrightness(100);
         for (int i=0; i < numPixels(); i++)
         {
             setPixelColor(i, Color1);
