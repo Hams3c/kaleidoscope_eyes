@@ -58,6 +58,7 @@ void loop()
     }
     else
     {
+        Rings.Index = 0;
         Rings.Strobe(Rings.Color(255,255,0));
     }
 }
