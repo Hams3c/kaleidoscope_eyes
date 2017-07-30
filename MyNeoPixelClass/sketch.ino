@@ -6,7 +6,6 @@ unsigned long previousMillis = 0;
 void setup()
 {
     Rings.begin();
-    Rings.setBrightness(100);
     Rings.Index = 0;
 }
 
@@ -19,23 +18,25 @@ void loop()
     Rings.Color1 = Rings.Wheel(random(255));
     Rings.Color2 = Rings.Wheel(random(255));
 
-    if (currentMillis - previousMillis > 45000L)
+    if (currentMillis - previousMillis > 50000L)
     {
         previousMillis = currentMillis;
     }
-    if (currentMillis - previousMillis > 40000L)
+
+    if (currentMillis - previousMillis > 45000L)
     {
         Rings.ferrisWheel(Rings.Color1);
     }
-    else if (currentMillis - previousMillis > 35000L)
+    else if (currentMillis - previousMillis > 40000L)
     {
         Rings.RainbowCycle();
     }
-    else if (currentMillis - previousMillis > 30000L)
+    else if (currentMillis - previousMillis > 35000L)
     {
         Rings.TheaterChase(Rings.Color(255,0,0), Rings.Color(0,0,50));
     }
-    // else if (totalMillis < 30000L)
+    // sketch too big, had to disable something
+    // else if (currentMillis - previousMillis > 30000L)
     // {
     //     Rings.FadeAndBlink(Rings.Color(255,255,0));
     // }
@@ -45,7 +46,7 @@ void loop()
     }
     else if (currentMillis - previousMillis > 20000L)
     {
-        Rings.Scanner(Rings.Color(144,255,0));
+        Rings.Scanner(Rings.Color(144,0,255));
     }
     else if (currentMillis - previousMillis > 15000L)
     {

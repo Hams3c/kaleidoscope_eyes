@@ -14,6 +14,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
     uint32_t Color1, Color2;  // What colors are in use
     uint16_t Index;  // current step within the pattern
     unsigned long Interval;   // milliseconds between updates
+    uint8_t myBrightness = 20; // 0->255
 
     // Constructor - calls base-class constructor to initialize discs
     MyNeoPixelClass(uint16_t pixels, uint8_t pin)
@@ -67,7 +68,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void ferrisWheel(uint32_t color)
     {
-        setBrightness(100);
+        setBrightness(myBrightness);
         for (uint8_t i=0; i < 16; i++)
         {
             setPixelColor(i, color);
@@ -81,7 +82,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
     // Initialize for a INFINITY
     void aInfinity(uint32_t color)
     {
-        setBrightness(100);
+        setBrightness(myBrightness);
         for (int i = 4; i < 16; i++)
         {
             setPixelColor(i, color);
@@ -130,7 +131,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void TheaterChase(uint32_t color1, uint32_t color2)
     {
-        setBrightness(100);
+        setBrightness(myBrightness);
         for(int i=0; i < numPixels(); i++)
         {
             if ((i+Index) % 3 == 0)
@@ -151,7 +152,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void FadeAndBlink(uint32_t color)
     {
-        setBrightness(100);
+        setBrightness(myBrightness);
         for (int i=0; i < numPixels(); i++)
         {
             setPixelColor(i, Color1);
@@ -200,7 +201,7 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
 
     void Strobe(uint32_t color)
     {
-        setBrightness(100);
+        setBrightness(myBrightness);
         for (int i=0; i < numPixels(); i++)
         {
             setPixelColor(i, Color1);
@@ -236,6 +237,10 @@ class MyNeoPixelClass : public Adafruit_NeoPixel
         }
     }
 
+    // to maximize the full effect because of the "fade", we have to use a
+    // brightness of 100 here.  we *could* use the setting in the variable
+    // myBrightness but we would need to change the delay.
+    // so fuck it, its hardcoded at 100.
     void Heartbeat(uint32_t color)
     {
         uint8_t brightness = 100;
