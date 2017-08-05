@@ -1,3 +1,7 @@
+// arduino IDE settings
+//  board: adafruit trink 8mhz
+//  port: com3, but could be whatever in reality
+//  programmer:  usbtinyisp
 MyNeoPixelClass Rings(32, 0);
 
 unsigned long previousMillis = 0;
